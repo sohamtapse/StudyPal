@@ -32,15 +32,21 @@ export async function POST(req: Request) {
     );
 
     response.cookies.set("token", token, {
-      secure: false, // Set true in production with HTTPS
+      secure: false,
       sameSite: "strict",
     });
 
     return response;
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err);
+    if (err instanceof Error) {
+      return NextResponse.json(
+        { message: "Error signing in", error: err.message },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
-      { message: "Error signing up", error: err.message },
+      { message: "Error signing in", error: "Unknown error" },
       { status: 500 }
     );
   }

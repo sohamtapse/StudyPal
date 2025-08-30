@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
@@ -15,9 +15,10 @@ export default function SignInPage() {
     try {
       const res = await axios.post("/api/sign-in", { email, password });
       setMessage(res.data.message);
-      router.push("/dashboard"); // redirect after login
-    } catch (err: any) {
-      setMessage(err.response?.data?.message || "Error signing in");
+      router.push("/dashboard");
+    } catch (err) {
+      const axiosErr = err as AxiosError<{ message?: string }>;
+      setMessage(axiosErr.response?.data?.message || "Error signing in");
     }
   };
 

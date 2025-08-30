@@ -28,17 +28,23 @@ export async function POST(req: Request) {
       { status: 200 }
     );
 
-    // ✅ set cookie in Next.js
     response.cookies.set("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // stays false in dev
-      maxAge: 24 * 60 * 60, // 1 day (seconds, not ms)
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
     return response;
-  } catch (err: any) {
+  } catch (err: unknown) {
+    console.log(err);
+    if (err instanceof Error) {
+      return NextResponse.json(
+        { message: "Error signing in", error: err.message },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
-      { message: "Error signing in", error: err.message },
+      { message: "Error signing in", error: "Unknown error" },
       { status: 500 }
     );
   }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
@@ -21,8 +21,9 @@ export default function SignUpPage() {
       });
       setMessage(res.data.message);
       router.push("/sign-in");
-    } catch (err: any) {
-      setMessage(err.response?.data?.message || "Error signing up");
+    } catch (err) {
+      const axiosErr = err as AxiosError<{ message?: string }>;
+      setMessage(axiosErr.response?.data?.message || "Error signing in");
     }
   };
 
