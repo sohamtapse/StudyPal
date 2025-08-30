@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import connect from "@/db/db";
+import Navbar from "@/components/navbar";
 connect();
 
 export const metadata: Metadata = {
@@ -15,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="dark">{children}</body>
+      <body className="dark">
+        <Navbar />
+        <main className="pt-16">{children}</main>
+      </body>
     </html>
   );
 }
