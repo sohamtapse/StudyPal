@@ -23,10 +23,10 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  text-white">
+    <div className="min-h-screen flex items-center justify-center text-white px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-900 p-6 rounded-xl shadow-lg w-100 space-y-5"
+        className="bg-gray-900 w-full max-w-md p-6 rounded-xl shadow-lg space-y-5"
       >
         <h1 className="text-2xl font-bold text-center">Sign In</h1>
         <input
@@ -45,12 +45,18 @@ export default function SignInPage() {
         />
         <button
           type="submit"
-          className="w-full bg-gray-600 hover:bg-gray-700 p-3 rounded text-white font-semibold cursor-pointer"
+          className="w-full bg-gray-700 hover:bg-gray-800 p-3 rounded text-white font-semibold cursor-pointer"
         >
           Sign In
         </button>
-        <div className="text-center text-gray-400">
-          Dont have account :- <a href="/sign-up">sign-up</a>
+        <div className="text-center text-gray-300 text-sm">
+          Don’t have an account?{" "}
+          <a
+            href="/sign-up"
+            className="text-purple-400 hover:cursor-pointer hover:text-purple-500"
+          >
+            Sign-up
+          </a>
         </div>
         {message && <p className="text-center mt-2">{message}</p>}
       </form>
