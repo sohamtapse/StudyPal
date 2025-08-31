@@ -1,4 +1,5 @@
 import { GraduationCap, User } from "lucide-react";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
@@ -18,18 +19,18 @@ const Navbar = () => {
 
           {/* Right Side */}
           <div className="flex items-center space-x-3">
-            <a href="/" className="hover:text-purple-500">
+            <Link href="/" className="hover:text-purple-500">
               Home
-            </a>
-            <a href="/dashboard" className="hover:text-purple-500">
+            </Link>
+            <Link href="/dashboard" className="hover:text-purple-500">
               Dashboard
-            </a>
-            <a href="/sign-in" className="hover:text-purple-500">
+            </Link>
+            <Link href="/sign-in" className="hover:text-purple-500">
               Sign-in
-            </a>
-            <a href="" className="p-2 rounded-lg hover:text-purple-500">
+            </Link>
+            <Link href="" className="p-2 rounded-lg hover:text-purple-500">
               <User className="h-5 w-5" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
