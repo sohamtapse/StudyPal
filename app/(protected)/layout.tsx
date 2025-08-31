@@ -19,7 +19,7 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
 
   if (loading) {
     return (
-      <div className="bg-black text-white h-screen flex justify-center items-center">
+      <div className="dark text-white h-170 flex justify-center items-center">
         Checking authentication...
       </div>
     );

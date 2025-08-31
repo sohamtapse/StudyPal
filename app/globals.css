@@ -58,3 +58,7 @@ body {
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+.gradient-text {
+  @apply bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent;
+}

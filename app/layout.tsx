@@ -16,9 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="dark">
+      <body className="dark scrollbar-hide">
         <Navbar />
-        <main className="pt-16">{children}</main>
+        <main className="mt-20 ">{children}</main>
       </body>
     </html>
   );
