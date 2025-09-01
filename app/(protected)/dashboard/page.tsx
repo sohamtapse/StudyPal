@@ -107,7 +107,7 @@ const DashboardPage = () => {
             Choose Your <span className="gradient-text">Learning Mode</span>
           </h2>
           <p className="text-gray-400 mb-6 text-sm md:text-base">
-            Select how you'd like to study your uploaded materials
+            Select how you would like to study your uploaded materials
           </p>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
