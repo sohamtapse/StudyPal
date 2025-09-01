@@ -8,7 +8,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="w-full fixed top-0 z-50 bg-black/30 md:bg-black/20 backdrop-blur-md transition-all duration-300">
+    <header className="w-full fixed top-0 z-50 bg-black/30 md:bg-black/30 backdrop-blur-md transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 pt-4">
         <div className="flex items-center justify-between">
           {/* Left Side */}
