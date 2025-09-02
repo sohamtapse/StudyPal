@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Upload, BookOpen, Brain } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-const { pdfName } = useParams();
+import { useRouter } from "next/navigation";
+
 const DashboardPage = () => {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -32,7 +32,7 @@ const DashboardPage = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const res = await fetch(`/api/${pdfName}/summary`, {
+      const res = await fetch(`/api/${encodeURIComponent(title)}/summary`, {
         method: "POST",
         body: formData,
       });
@@ -40,7 +40,7 @@ const DashboardPage = () => {
       if (!res.ok) throw new Error("Failed to generate summary");
       await res.json();
 
-      router.push(`/summary/${pdfName}`);
+      router.push(`/summary/${encodeURIComponent(title)}`);
     } catch (err) {
       console.error("Error generating summary:", err);
       alert("Failed to generate summary");
