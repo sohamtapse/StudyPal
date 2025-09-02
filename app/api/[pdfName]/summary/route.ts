@@ -53,9 +53,11 @@ export async function POST(
       message: "Summary generated successfully",
       summary,
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const message =
+      err instanceof Error ? err.message : "Unexpected error occurred";
     return NextResponse.json(
-      { message: "Error generating summary", error: err.message },
+      { message: "Error generating summary", error: message },
       { status: 500 }
     );
   }
@@ -95,9 +97,11 @@ export async function GET(
             },
           ],
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const message =
+      err instanceof Error ? err.message : "Unexpected error occurred";
     return NextResponse.json(
-      { message: "Error fetching summary", error: err.message },
+      { message: "Error generating summary", error: message },
       { status: 500 }
     );
   }
