@@ -2,10 +2,11 @@ import mongoose, { Document, Model } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const timetableSchema = new mongoose.Schema({
-  filename: String,
-  title: String,
-  data: mongoose.Schema.Types.Mixed, // Flexible JSON
+const pdfSchema = new mongoose.Schema({
+  filename: { type: String, required: true },
+  title: { type: String, required: true },
+  summary: { type: String },
+  pyqs: { type: [String], default: [] },
   uploadedAt: { type: Date, default: Date.now },
 });
 
@@ -13,7 +14,13 @@ export interface IUser extends Document {
   email: string;
   password: string;
   username?: string;
-  timetables: (typeof timetableSchema)[];
+  pdfs: {
+    filename: string;
+    title: string;
+    summary?: string;
+    pyqs?: string[];
+    uploadedAt: Date;
+  }[];
   isValidPassword(password: string): Promise<boolean>;
   generateJWT(): string;
 }
@@ -38,6 +45,7 @@ const userSchema = new mongoose.Schema<IUser, IUserModel>({
   username: {
     type: String,
   },
+  pdfs: [pdfSchema],
 });
 
 userSchema.statics.hashPassword = async function (password: string) {
