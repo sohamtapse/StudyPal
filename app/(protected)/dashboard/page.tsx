@@ -159,6 +159,3 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
-function err(reason: any): PromiseLike<never> {
-  throw new Error("Function not implemented.");
-}
