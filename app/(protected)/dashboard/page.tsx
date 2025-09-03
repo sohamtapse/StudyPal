@@ -35,10 +35,17 @@ const DashboardPage = () => {
       const res = await fetch(`/api/${encodeURIComponent(title)}/summary`, {
         method: "POST",
         body: formData,
-      });
-
-      if (!res.ok) throw new Error("Failed to generate summary");
-      await res.json();
+      })
+        .then((res) => {
+          if (!res.ok) {
+            console.log(res);
+          }
+          res.json();
+        })
+        .catch((err) => {
+          console.log("a", err);
+          throw err;
+        });
 
       router.push(`/summary/${encodeURIComponent(title)}`);
     } catch (err) {
@@ -152,3 +159,6 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
+function err(reason: any): PromiseLike<never> {
+  throw new Error("Function not implemented.");
+}
