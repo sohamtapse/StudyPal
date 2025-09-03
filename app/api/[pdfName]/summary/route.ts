@@ -4,14 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/user.model";
 import { generateSummary } from "@/lib/gemini/summarize";
 import jwt from "jsonwebtoken";
-// export const runtime = "edge";
+import connect from "@/db/db"; // <-- Import connect
 
 export async function POST(
   req: NextRequest,
-  context: { params: Promise<{ pdfName: string }> }
+  context: { params: { pdfName: string } } // <-- Fix type
 ) {
   try {
-    const { pdfName } = await context.params;
+    await connect(); // <-- Ensure DB connection
+
+    const { pdfName } = context.params; // <-- Use directly
 
     const token = req.cookies.get("token")?.value;
     if (!token)
@@ -31,7 +33,6 @@ export async function POST(
       );
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    console.log("buffer done");
     const summary = await generateSummary(buffer);
 
     const existingPdf = user.pdfs.find((pdf) => pdf.filename === pdfName);
@@ -47,11 +48,7 @@ export async function POST(
         uploadedAt: new Date(),
       });
     }
-    try {
-      await user.save();
-    } catch (error) {
-      console.log(error);
-    }
+    await user.save();
 
     return NextResponse.json({
       message: "Summary generated successfully",
@@ -69,10 +66,12 @@ export async function POST(
 
 export async function GET(
   req: NextRequest,
-  context: { params: Promise<{ pdfName: string }> }
+  context: { params: { pdfName: string } } // <-- Fix type
 ) {
   try {
-    const { pdfName } = await context.params;
+    await connect(); // <-- Ensure DB connection
+
+    const { pdfName } = context.params; // <-- Use directly
 
     const token = req.cookies.get("token")?.value;
     if (!token)
