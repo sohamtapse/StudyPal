@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="dark scrollbar-hide">
+      <body className="dark scrollbar-hide ">
         <Navbar />
         <main className="mt-20 ">{children}</main>
       </body>
