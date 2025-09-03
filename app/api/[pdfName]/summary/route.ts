@@ -4,8 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/user.model";
 import { generateSummary } from "@/lib/gemini/summarize";
 import jwt from "jsonwebtoken";
+// export const runtime = "edge";
 
-// Generate + Save Summary
 export async function POST(
   req: NextRequest,
   context: { params: Promise<{ pdfName: string }> }
@@ -31,6 +31,7 @@ export async function POST(
       );
 
     const buffer = Buffer.from(await file.arrayBuffer());
+    console.log("buffer done");
     const summary = await generateSummary(buffer);
 
     const existingPdf = user.pdfs.find((pdf) => pdf.filename === pdfName);
@@ -46,8 +47,11 @@ export async function POST(
         uploadedAt: new Date(),
       });
     }
-
-    await user.save();
+    try {
+      await user.save();
+    } catch (error) {
+      console.log(error);
+    }
 
     return NextResponse.json({
       message: "Summary generated successfully",
