@@ -8,12 +8,12 @@ import connect from "@/db/db"; // <-- Import connect
 
 export async function POST(
   req: NextRequest,
-  context: { params: { pdfName: string } } // <-- Fix type
+  context: { params: Promise<{ pdfName: string }> } // <-- Fix type
 ) {
   try {
     await connect(); // <-- Ensure DB connection
 
-    const { pdfName } = context.params; // <-- Use directly
+    const { pdfName } = await context.params; // <-- Use directly
 
     const token = req.cookies.get("token")?.value;
     if (!token)
@@ -66,12 +66,12 @@ export async function POST(
 
 export async function GET(
   req: NextRequest,
-  context: { params: { pdfName: string } } // <-- Fix type
+  context: { params: Promise<{ pdfName: string }> }
 ) {
   try {
     await connect(); // <-- Ensure DB connection
 
-    const { pdfName } = context.params; // <-- Use directly
+    const { pdfName } = await context.params; // <-- Use directly
 
     const token = req.cookies.get("token")?.value;
     if (!token)
